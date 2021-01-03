@@ -1,5 +1,7 @@
 package com.example.root.controller;
 
+import com.example.root.constant.ErrorPage;
+import com.example.root.constant.StatusDefine;
 import com.example.root.dao.UserEntity;
 import com.example.root.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +19,15 @@ public class CrudController {
     private UserService userService;
 
     @GetMapping("/create")
-    public String createPage(){
-        log.info("create page load success");
-        return "CRUD/create";
+    public String createPage(Model model){
+        try {
+            log.info("create page load success");
+            return "CRUD/create";
+        } catch (Exception e) {
+            model.addAttribute("errorCdoe",404);
+            log.error("error " + e.getMessage());
+            return ErrorPage.errorPage;
+        }
     }
 
     @PostMapping("/create")
@@ -35,20 +43,39 @@ public class CrudController {
     }
 
     @GetMapping("/read")
-    public String readPage(Model model, UserEntity userEntity) {
+    public String readPage(Model model) {
         model.addAttribute("userData",userService.readAllUser());
         return "CRUD/read";
     }
 
 
     @GetMapping("/delete")
-    public String deletePage() {
-        return "CRUD/delete";
+    public String deletePage(Model model) {
+        try{
+            log.info("delete page load success");
+            return "CRUD/delete";
+        } catch (Exception e) {
+            model.addAttribute("errorCdoe",404);
+            log.error("error " + e.getMessage());
+            return ErrorPage.errorPage;
+        }
     }
 
     @PostMapping("/delete")
-    public String delete(UserEntity user) {
-        userService.Delete(user);
-        return "CRUD/delete";
+    public String delete(Model model, UserEntity user) {
+        try {
+            if (userService.Delete(user) == StatusDefine.SUCCESS) {
+                log.info("delete success");
+                return "redirect:/";
+            }
+            else {
+                model.addAttribute("errorCdoe",404);
+                log.error(user.getEmail() + "delete fail");
+                return ErrorPage.errorPage;
+            }
+        } catch (Exception e) {
+            log.error(user.getEmail() + "delete fail");
+            return "CRUD/delete";
+        }
     }
 }

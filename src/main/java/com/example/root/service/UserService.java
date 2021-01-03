@@ -1,7 +1,7 @@
 package com.example.root.service;
 
+import com.example.root.constant.StatusDefine;
 import com.example.root.dao.UserEntity;
-import com.example.root.error.StatusDefine;
 import com.example.root.repo.UserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class UserService implements UserServiceInterface {
             newUser.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepo.save(newUser);
             log.info(newUser.getEmail()+" insert success");
-            return StatusDefine.SUCCESS.getCode();
+            return StatusDefine.SUCCESS;
 
         }catch (Exception e)
         {
             log.error(e.getMessage());
-            return StatusDefine.ERROR_BAD_REQUEST.getCode();
+            return StatusDefine.ERROR_BAD_REQUEST;
         }
 
     }
@@ -52,7 +52,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public int updateUser(UserEntity user) {
-        return StatusDefine.SUCCESS.getCode();
+        return StatusDefine.SUCCESS;
     }
 
     @Override
@@ -60,22 +60,23 @@ public class UserService implements UserServiceInterface {
         try {
             if (userRepo.findByEmail(user.getEmail()) != null) {
                 UserEntity userData = userRepo.findByEmail(user.getEmail());
-                if (passwordEncoder.matches(userData.getPassword(),user.getPassword())) {
-                    log.info("delete success");
+                if (passwordEncoder.matches(user.getPassword(),userData.getPassword())) {
                     userRepo.deleteByEmail(user.getEmail());
+                    log.info("delete success");
+                    return StatusDefine.SUCCESS;
                 }
                 else {
                     log.error(user.getEmail()+" password dis match");
-                    return StatusDefine.ERROR_UNAUTHORIZED.getCode();
+                    return StatusDefine.ERROR_UNAUTHORIZED;
                 }
             }
             else{
-                return StatusDefine.ERROR_BAD_REQUEST.getCode();
+                log.error(user.getEmail() + " user not found");
+                return StatusDefine.ERROR_NOT_FOUNT;
             }
-            return StatusDefine.SUCCESS.getCode();
         }catch (Exception e) {
             log.error(e.getMessage());
-            return StatusDefine.ERROR_BAD_REQUEST.getCode();
+            return StatusDefine.ERROR_BAD_REQUEST;
         }
     }
 }
