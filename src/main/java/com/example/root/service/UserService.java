@@ -59,7 +59,15 @@ public class UserService implements UserServiceInterface {
     public int Delete(UserEntity user) {
         try {
             if (userRepo.findByEmail(user.getEmail()) != null) {
-                userRepo.deleteByEmail(user.getEmail());
+                UserEntity userData = userRepo.findByEmail(user.getEmail());
+                if (passwordEncoder.matches(userData.getPassword(),user.getPassword())) {
+                    log.info("delete success");
+                    userRepo.deleteByEmail(user.getEmail());
+                }
+                else {
+                    log.error(user.getEmail()+" password dis match");
+                    return StatusDefine.ERROR_UNAUTHORIZED.getCode();
+                }
             }
             else{
                 return StatusDefine.ERROR_BAD_REQUEST.getCode();
