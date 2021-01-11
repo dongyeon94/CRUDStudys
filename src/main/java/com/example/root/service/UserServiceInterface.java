@@ -9,4 +9,5 @@ public interface UserServiceInterface {
     List<UserEntity> readAllUser();
     int updateUser(UserEntity user);
     int Delete(UserEntity user);
+    UserEntity myPage(String email);
 }

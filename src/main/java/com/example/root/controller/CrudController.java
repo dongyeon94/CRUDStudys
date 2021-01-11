@@ -18,6 +18,17 @@ public class CrudController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/mypage")
+    public String myPage(Model model){
+        return "CRUD/myPage";
+    }
+
+    @PostMapping("/mypage")
+    public String myPageLoad(Model model,String email){
+        model.addAttribute("userData",userService.myPage(email));
+        return "CRUD/myPage";
+    }
+
     @GetMapping("/create")
     public String createPage(Model model){
         try {

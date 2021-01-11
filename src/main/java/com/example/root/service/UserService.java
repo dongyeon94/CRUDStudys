@@ -39,6 +39,11 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
+    public UserEntity myPage(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    @Override
     public List<UserEntity> readAllUser() {
         try {
             log.info("read success");
