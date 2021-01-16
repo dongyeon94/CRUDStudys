@@ -18,13 +18,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 class MainIndexTest {
 
     @Autowired
-    MockMvc  mockMvc;
+    MockMvc mockMvc;
 
     @Test
     @DisplayName("메인 URL 테스트")
     void mainURLTest() throws Exception {
         mockMvc.perform(get("/"))
-                            .andExpect(status().isOk())
-                            .andDo(print());
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 }

@@ -20,18 +20,17 @@ public class UserService implements UserServiceInterface {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public int createUser (UserEntity user) {
+    public int createUser(UserEntity user) {
         UserEntity newUser = new UserEntity();
         try {
             newUser.setEmail(user.getEmail());
             newUser.setId(user.getId());
             newUser.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepo.save(newUser);
-            log.info(newUser.getEmail()+" insert success");
+            log.info(newUser.getEmail() + " insert success");
             return StatusDefine.SUCCESS;
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error(e.getMessage());
             return StatusDefine.ERROR_BAD_REQUEST;
         }
@@ -49,7 +48,7 @@ public class UserService implements UserServiceInterface {
             log.info("read success");
             List<UserEntity> UserList = userRepo.findAll();
             return UserList;
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
             return null;
         }
@@ -65,21 +64,19 @@ public class UserService implements UserServiceInterface {
         try {
             if (userRepo.findByEmail(user.getEmail()) != null) {
                 UserEntity userData = userRepo.findByEmail(user.getEmail());
-                if (passwordEncoder.matches(user.getPassword(),userData.getPassword())) {
+                if (passwordEncoder.matches(user.getPassword(), userData.getPassword())) {
                     userRepo.deleteByEmail(user.getEmail());
                     log.info("delete success");
                     return StatusDefine.SUCCESS;
-                }
-                else {
-                    log.error(user.getEmail()+" password dis match");
+                } else {
+                    log.error(user.getEmail() + " password dis match");
                     return StatusDefine.ERROR_UNAUTHORIZED;
                 }
-            }
-            else{
+            } else {
                 log.error(user.getEmail() + " user not found");
                 return StatusDefine.ERROR_NOT_FOUNT;
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
             return StatusDefine.ERROR_BAD_REQUEST;
         }

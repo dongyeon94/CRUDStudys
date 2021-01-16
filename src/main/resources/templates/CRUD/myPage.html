@@ -7,32 +7,32 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>read</h2>
-    <div>
-        <form action="/mypage" method="post">
-            <div><input type="email" id="email" name="email"></div>
-            <div><input type="password" id="password" name="password"></div>
-            <div><input type="submit" value="check"></div>
-        </form>
-    </div>
+<h2>read</h2>
+<div>
+    <form action="/mypage" method="post">
+        <div><input type="email" id="email" name="email"></div>
+        <div><input type="password" id="password" name="password"></div>
+        <div><input type="submit" value="check"></div>
+    </form>
+</div>
 
-    <div style="height: 50px;"></div>
+<div style="height: 50px;"></div>
 
-    <div>
-        <table>
-            <thead>
-                <th>email</th>
-                <th>nickname</th>
-                <th>password</th>
-            </thead>
-            <tbody>
-                <tr th:each="userData : ${userData}" th:object="${userData}">
-                    <td th:text="${userData.email}">email</td>
-                    <td th:text="${userData.nickname}">nickname</td>
-                    <td th:text="${userData.password}">password</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div>
+    <table>
+        <thead>
+        <th>email</th>
+        <th>nickname</th>
+        <th>password</th>
+        </thead>
+        <tbody>
+        <tr th:each="userData : ${userData}" th:object="${userData}">
+            <td th:text="${userData.email}">email</td>
+            <td th:text="${userData.nickname}">nickname</td>
+            <td th:text="${userData.password}">password</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

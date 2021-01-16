@@ -19,35 +19,34 @@ public class CrudController {
     private UserService userService;
 
     @GetMapping("/mypage")
-    public String myPage(Model model){
+    public String myPage(Model model) {
         return "CRUD/myPage";
     }
 
     @PostMapping("/mypage")
-    public String myPageLoad(Model model,String email){
-        model.addAttribute("userData",userService.myPage(email));
+    public String myPageLoad(Model model, String email) {
+        model.addAttribute("userData", userService.myPage(email));
         return "CRUD/myPage";
     }
 
     @GetMapping("/create")
-    public String createPage(Model model){
+    public String createPage(Model model) {
         try {
             log.info("create page load success");
             return "CRUD/create";
         } catch (Exception e) {
-            model.addAttribute("errorCdoe",404);
+            model.addAttribute("errorCdoe", 404);
             log.error("error " + e.getMessage());
             return ErrorPage.errorPage;
         }
     }
 
     @PostMapping("/create")
-    public String create(UserEntity user){
+    public String create(UserEntity user) {
         if (userService.createUser(user) == 200) {
             log.info("user data insert success");
             return "redirect:/";
-        }
-        else {
+        } else {
             log.error("insert fail");
             return "CRUD/create";
         }
@@ -55,18 +54,18 @@ public class CrudController {
 
     @GetMapping("/read")
     public String readPage(Model model) {
-        model.addAttribute("userData",userService.readAllUser());
+        model.addAttribute("userData", userService.readAllUser());
         return "CRUD/read";
     }
 
 
     @GetMapping("/delete")
     public String deletePage(Model model) {
-        try{
+        try {
             log.info("delete page load success");
             return "CRUD/delete";
         } catch (Exception e) {
-            model.addAttribute("errorCdoe",404);
+            model.addAttribute("errorCdoe", 404);
             log.error("error " + e.getMessage());
             return ErrorPage.errorPage;
         }
@@ -78,9 +77,8 @@ public class CrudController {
             if (userService.Delete(user) == StatusDefine.SUCCESS) {
                 log.info("delete success");
                 return "redirect:/";
-            }
-            else {
-                model.addAttribute("errorCdoe",404);
+            } else {
+                model.addAttribute("errorCdoe", 404);
                 log.error(user.getEmail() + "delete fail");
                 return ErrorPage.errorPage;
             }

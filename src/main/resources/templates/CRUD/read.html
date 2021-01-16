@@ -7,18 +7,18 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>read</h2>
-    <div>
-        <table>
-            <thead>
-                <th>email</th>
-            </thead>
-            <tbody>
-                <tr th:each="userData : ${userData}" th:object="${userData}">
-                    <td th:text="${userData.email}">email</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<h2>read</h2>
+<div>
+    <table>
+        <thead>
+        <th>email</th>
+        </thead>
+        <tbody>
+        <tr th:each="userData : ${userData}" th:object="${userData}">
+            <td th:text="${userData.email}">email</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

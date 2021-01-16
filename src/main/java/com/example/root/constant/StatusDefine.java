@@ -10,5 +10,6 @@ public class StatusDefine {
     public static final int ERROR_CONNECTION_TIMEOUT = 599;
 
 
-    private StatusDefine() {}
+    private StatusDefine() {
+    }
 }

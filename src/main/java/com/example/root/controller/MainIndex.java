@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainIndex {
 
     @GetMapping("/")
-    public String main(){
+    public String main() {
         log.info("main page load successs");
         return "index";
     }

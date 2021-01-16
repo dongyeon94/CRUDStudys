@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface UserRepo extends JpaRepository<UserEntity, Long> {
     UserEntity findByEmail(String email);
+
     @Transactional
     void deleteByEmail(String email);
 }

@@ -38,13 +38,13 @@ class UserServiceTest {
     @Test
     void createTest() throws Exception {
         assertAll("insert test",
-                            () -> userRepo.save(userEntity));
+                () -> userRepo.save(userEntity));
     }
 
     @Test
     void readAllUserTest() {
         assertAll("user list check",
-                () -> assertEquals(userRepo.findAll(),userService.readAllUser())
+                () -> assertEquals(userRepo.findAll(), userService.readAllUser())
         );
     }
 }

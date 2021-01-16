@@ -22,9 +22,9 @@ class CrudControllerTest {
     @Test
     void createTest() throws Exception {
         mockMvc.perform(post("/create")
-                            .param("email","logout94@naver.com")
-                            .param("password","1234"))
-                            .andExpect(status().is3xxRedirection())
-                            .andDo(print());
+                .param("email", "logout94@naver.com")
+                .param("password", "1234"))
+                .andExpect(status().is3xxRedirection())
+                .andDo(print());
     }
 }
