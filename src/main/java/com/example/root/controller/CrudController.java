@@ -1,6 +1,6 @@
 package com.example.root.controller;
 
-import com.example.root.constant.ErrorPage;
+import com.example.root.constant.ErrorPageFilter;
 import com.example.root.constant.StatusDefine;
 import com.example.root.dao.UserEntity;
 import com.example.root.service.UserService;
@@ -37,7 +37,7 @@ public class CrudController {
         } catch (Exception e) {
             model.addAttribute("errorCdoe", 404);
             log.error("error " + e.getMessage());
-            return ErrorPage.errorPage;
+            return ErrorPageFilter.errorPage;
         }
     }
 
@@ -67,7 +67,7 @@ public class CrudController {
         } catch (Exception e) {
             model.addAttribute("errorCdoe", 404);
             log.error("error " + e.getMessage());
-            return ErrorPage.errorPage;
+            return ErrorPageFilter.errorPage;
         }
     }
 
@@ -80,7 +80,7 @@ public class CrudController {
             } else {
                 model.addAttribute("errorCdoe", 404);
                 log.error(user.getEmail() + "delete fail");
-                return ErrorPage.errorPage;
+                return ErrorPageFilter.errorPage;
             }
         } catch (Exception e) {
             log.error(user.getEmail() + "delete fail");
